@@ -3,26 +3,26 @@ using UnityEngine;
 public class LightManager : MonoBehaviour
 {
     [SerializeField]
-    private LightFollow lightFollow; // Işığı yöneten script
+    private LightFollow lightFollow; // The script controlling the light's behavior
 
     private void Start()
     {
-        // GameManager'dan hedef değişim olayını dinle
+        // Subscribe to the target change event
         GameManager.Instance.OnTargetChange += HandleTargetChange;
 
-        // Oyunun başlangıcında topu hedef olarak ayarla
+        // Set the initial target as the ball
         HandleTargetChange(FindObjectOfType<BallController>().transform);
     }
 
     private void OnDestroy()
     {
-        // Olaydan aboneliği kaldır
+        // Unsubscribe from the target change event
         GameManager.Instance.OnTargetChange -= HandleTargetChange;
     }
 
     private void HandleTargetChange(Transform newTarget)
     {
-        // Işığın yeni hedefini ayarla
+        // Update the light's target
         lightFollow.SetTarget(newTarget);
     }
 }

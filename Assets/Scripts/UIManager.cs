@@ -1,34 +1,37 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro; // Import TextMesh Pro namespace
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
-    private Text gameStateText;
+    private TextMeshProUGUI gameStateText; // TextMesh Pro text element to display the game state
 
     private void Start()
     {
+        // Subscribe to the game state change event
         GameManager.Instance.OnGameStateChange += UpdateUI;
-        UpdateUI(GameManager.Instance.CurrentState);
+        UpdateUI(GameManager.Instance.CurrentState); // Initialize the UI
     }
 
     private void OnDestroy()
     {
+        // Unsubscribe from the game state change event
         GameManager.Instance.OnGameStateChange -= UpdateUI;
     }
 
     private void UpdateUI(GameState newState)
     {
+        // Update the UI text based on the game state
         switch (newState)
         {
             case GameState.Start:
-                gameStateText.text = "Oyuna Başlamak için Dokun!";
+                gameStateText.text = "Tap to Start the Game!";
                 break;
             case GameState.Playing:
-                gameStateText.text = "Topu Hedefe Ulaştır!";
+                gameStateText.text = "Guide the Ball to the Goal!";
                 break;
             case GameState.End:
-                gameStateText.text = "Tebrikler! Oyunu Bitirdiniz.";
+                gameStateText.text = "Congratulations! You Finished the Game.";
                 break;
         }
     }

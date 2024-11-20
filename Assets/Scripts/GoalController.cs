@@ -6,8 +6,8 @@ public class GoalController : MonoBehaviour
     {
         if (other.CompareTag("Ball"))
         {
-            Debug.Log("Hedefe ulaşıldı!");
-            GameManager.Instance.ChangeState(GameState.End);
+            Debug.Log("Goal reached!");
+            GameManager.Instance.ChangeState(GameState.End); // Change the game state to End
         }
     }
 }

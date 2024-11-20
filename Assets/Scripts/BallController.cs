@@ -6,22 +6,22 @@ public class BallController : MonoBehaviour
     private Rigidbody rb;
 
     [SerializeField]
-    private float speed = 20f; // Hareket hızı
+    private float speed = 20f; // Movement speed of the ball
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>(); // Get the Rigidbody component
     }
 
     private void Update()
     {
-        // Telefon eğimini alıyoruz
+        // Get phone tilt input (accelerometer data)
         Vector3 tilt = Input.acceleration;
 
-        // X ve Z eksenlerinde kuvvet uygula
+        // Apply force based on X and Z tilt values
         Vector3 movement = new Vector3(tilt.x, 0, tilt.y);
 
-        // Rigidbody'e kuvvet uygula
+        // Add force to the Rigidbody for movement
         rb.AddForce(movement * speed);
     }
 }

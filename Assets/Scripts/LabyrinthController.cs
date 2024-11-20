@@ -4,11 +4,13 @@ public class LabyrinthController : MonoBehaviour
 {
     private void Start()
     {
+        // Subscribe to the game state change event
         GameManager.Instance.OnGameStateChange += HandleGameStateChange;
     }
 
     private void OnDestroy()
     {
+        // Unsubscribe from the game state change event
         GameManager.Instance.OnGameStateChange -= HandleGameStateChange;
     }
 
@@ -17,13 +19,13 @@ public class LabyrinthController : MonoBehaviour
         switch (newState)
         {
             case GameState.Start:
-                Debug.Log("Oyun başladı!");
+                Debug.Log("Game started!");
                 break;
             case GameState.Playing:
-                Debug.Log("Oyun oynanıyor!");
+                Debug.Log("Game is in progress!");
                 break;
             case GameState.End:
-                Debug.Log("Oyun bitti!");
+                Debug.Log("Game ended!");
                 break;
         }
     }

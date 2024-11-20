@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Oyunun sahneler arasında devam etmesini sağlar
+            DontDestroyOnLoad(gameObject); // Ensure this object persists across scenes
         }
         else
         {
@@ -32,42 +32,42 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        // Oyunu başlatma durumuna geç
+        // Set the initial game state
         ChangeState(GameState.Start);
     }
 
     /// <summary>
-    /// Oyun durumunu değiştirir ve ilgili event'i tetikler.
+    /// Changes the current game state and triggers the event.
     /// </summary>
-    /// <param name="newState">Yeni oyun durumu</param>
+    /// <param name="newState">The new game state.</param>
     public void ChangeState(GameState newState)
     {
         CurrentState = newState;
         Debug.Log($"Game State Changed to: {newState}");
 
-        // Durum değişikliği olayını tetikle
+        // Trigger the game state change event
         OnGameStateChange?.Invoke(newState);
     }
 
     /// <summary>
-    /// Takip edilecek hedefi değiştirir ve ilgili event'i tetikler.
+    /// Changes the target to be followed and triggers the event.
     /// </summary>
-    /// <param name="newTarget">Yeni hedef (Transform)</param>
+    /// <param name="newTarget">The new target (Transform).</param>
     public void ChangeTarget(Transform newTarget)
     {
         Debug.Log($"Target Changed to: {newTarget.name}");
 
-        // Hedef değişikliği olayını tetikle
+        // Trigger the target change event
         OnTargetChange?.Invoke(newTarget);
     }
 }
 
 /// <summary>
-/// Oyun durumlarının tanımlandığı enum.
+/// Enum representing the different game states.
 /// </summary>
 public enum GameState
 {
-    Start,    // Oyun başlangıç durumunda
-    Playing,  // Oyun oynanıyor
-    End       // Oyun bitti
+    Start,    // Game is at the start state
+    Playing,  // Game is in the playing state
+    End       // Game has ended
 }

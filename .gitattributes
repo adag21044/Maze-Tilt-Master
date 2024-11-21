@@ -4,3 +4,4 @@
 *.cginc linguist-vendored
 *.compute linguist-vendored
 *.meta linguist-detectable=false
+*.cs linguist-language=C#

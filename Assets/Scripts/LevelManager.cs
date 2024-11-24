@@ -73,7 +73,7 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("No more levels. Game completed!");
+            Debug.Log("You won. Game completed!");
         }
     }
 

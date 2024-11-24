@@ -3,6 +3,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    private IMusicManager _musicManager;
 
     public delegate void GameStateChange(GameState newState);
     public event GameStateChange OnGameStateChange;
@@ -24,6 +25,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        _musicManager = FindObjectOfType<MusicManager>();
     }
 
     private void Start()
@@ -31,12 +34,39 @@ public class GameManager : MonoBehaviour
         ChangeState(GameState.Start);
     }
 
+    public void SetMusicManager(IMusicManager musicManager)
+    {
+        _musicManager = musicManager;
+    }
+
+
     public void ChangeState(GameState newState)
     {
         CurrentState = newState;
         Debug.Log($"Game State Changed to: {newState}");
+
+        switch (newState)
+        {
+            case GameState.Start:
+                _musicManager.PlayMusic();
+                break;
+            case GameState.End:
+                _musicManager.StopMusic();
+
+                // Stop the ball
+                BallController ballController = FindObjectOfType<BallController>();
+                if (ballController != null)
+                {
+                    ballController.DisableMovement();
+                }
+                break;
+        }
+
         OnGameStateChange?.Invoke(newState);
     }
+
+
+
 
     /// <summary>
     /// Trigger the OnTargetChange event when the target changes.

@@ -73,9 +73,12 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
+            // All levels completed
             Debug.Log("You won. Game completed!");
+            GameManager.Instance.ChangeState(GameState.End); // Trigger Game End
         }
     }
+
 
     /// <summary>
     /// Resets the ball to its initial position.

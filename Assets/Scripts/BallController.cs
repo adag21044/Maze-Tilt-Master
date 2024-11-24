@@ -7,6 +7,7 @@ public class BallController : MonoBehaviour
 
     [SerializeField]
     private float speed = 20f; // Movement speed of the ball
+    private bool canMove = true; // Flag to control movement
 
     private void Start()
     {
@@ -15,6 +16,8 @@ public class BallController : MonoBehaviour
 
     private void Update()
     {
+        if (!canMove) return; // Stop processing movement if disabled
+
         // Get phone tilt input (accelerometer data)
         Vector3 tilt = Input.acceleration;
 
@@ -23,5 +26,18 @@ public class BallController : MonoBehaviour
 
         // Add force to the Rigidbody for movement
         rb.AddForce(movement * speed);
+    }
+    
+    // Public method to disable movement
+    public void DisableMovement()
+    {
+        canMove = false;
+
+        // Stop the ball completely
+        if (rb != null)
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
     }
 }

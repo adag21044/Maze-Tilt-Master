@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
         switch (newState)
         {
             case GameState.Start:
-                gameStateText.text = "Tap to Start the Game!";
+                gameStateText.text = "Game Started!";
                 break;
             case GameState.Playing:
                 gameStateText.text = "Guide the Ball to the Goal!";
